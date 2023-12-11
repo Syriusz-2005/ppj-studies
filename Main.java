@@ -225,31 +225,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        var square = new int[8][8];
-        Task17.fillWithRings(square, 0);
-        UtilManager.displayArray(square);
-
-
-
-        //binary search
-        int[] arr = {1, 5, 9, 10, 18};
-        System.out.println(Task17.binSearch(arr, 0, arr.length, -20));
-
-
-        //permutations recursive
-        var elements = new ArrayList<Integer>();
-
-        elements.add(1);
-        elements.add(2);
-
-        var result = Task16.getPermutations(elements);
-        int[] elements2 = {1, 2, 3};
-        var result2 = Task16.getPermutations(elements2);
-        System.out.println(result);
-        for (var r : result2) {
-            System.out.println(Arrays.toString(r));
-        }
-
+        int[] arr = {5, 1, 0, 12, 15, 4};
+        Task17.bubbleSortRe(arr, arr.length);
+        System.out.println(Arrays.toString(arr));
         //      Tasks13.runTask2();
 
 //        System.out.println(findMax(20, 14, 16));
