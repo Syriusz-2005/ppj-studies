@@ -33,7 +33,7 @@ public class Task17 {
     }
 
     public static void fillWithRings(int[][] arr, int ring) {
-        
+
         int ringValue = ring + 1;
 
         for (int i = ring; i < arr.length - ring; i++) {

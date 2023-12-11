@@ -2,7 +2,6 @@ import java.awt.geom.Point2D;
 import java.util.*;
 
 import Util.UtilManager;
-
 public class Main {
     public static boolean isPrimeNumber(int n) {
         for (int i = 2; i <= n / 2; i++) {
