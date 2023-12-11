@@ -1,6 +1,7 @@
 package Util;
 import java.awt.geom.Point2D.Double;
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -17,9 +18,7 @@ public class UtilManager {
 
     public static void displayArray(int[][] arr) {
         for (var row : arr) {
-            for (var item : row) {
-                System.out.print(item + " | ");
-            }
+            System.out.print(Arrays.toString(row));
             System.out.println();
         }
     }
