@@ -226,8 +226,10 @@ public class Main {
 
     public static void main(String[] args) {
         var square = new int[8][8];
-        Task17.fillWithCircles(square, 0);
+        Task17.fillWithRings(square, 0);
         UtilManager.displayArray(square);
+
+
 
         //binary search
         int[] arr = {1, 5, 9, 10, 18};
