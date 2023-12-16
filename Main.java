@@ -1,5 +1,6 @@
 import java.awt.geom.Point2D;
 import java.util.*;
+import Vector.Vector3;
 
 import Util.UtilManager;
 public class Main {
@@ -140,6 +141,7 @@ public class Main {
             return;
         }
 
+
         if (currPoints1 > maxPoints1 || currPoints2 > maxPoints2) {
             System.out.println("You cannot have more points than max points");
             Main.runTask9_1();
@@ -224,10 +226,15 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int[] arr = {5, 1, 0, 12, 15, 4};
-        Task17.bubbleSortRe(arr, arr.length);
-        System.out.println(Arrays.toString(arr));
-        //      Tasks13.runTask2();
+        Vector3 vec = new Vector3(1, 1, 1);
+        var vec2 = vec.cloneVec();
+        System.out.println(vec);
+
+
+//        int[] arr = {5, 1, 0, 12, 15, 4};
+//        Task17.bubbleSortRe(arr, arr.length);
+//        System.out.println(Arrays.toString(arr));
+        //      Tasks13.runTask2()
 
 //        System.out.println(findMax(20, 14, 16));
 
