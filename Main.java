@@ -1,5 +1,8 @@
 import java.awt.geom.Point2D;
 import java.util.*;
+
+import SDF.SDFTerminalRenderer;
+import SDF.SDFWorld;
 import Vector.Vector3;
 import Vector.FloatVec3;
 
@@ -107,13 +110,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Vector3 vec = new Vector3(1, 1, 1);
-        var vec2 = vec.cloneVec();
-        System.out.println(vec);
+        var world = new SDFWorld();
+        var renderer = new SDFTerminalRenderer(world);
 
-        FloatVec3 vec3 = new FloatVec3(1.0F, 1.0F, 1.0F);
-        FloatVec3 vec4 = vec3.setZ(4.0F).setX(5.0F);
-
-        System.out.println(vec3.distanceTo(vec4));
+        renderer.render();
     }
 }

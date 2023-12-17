@@ -132,6 +132,16 @@ public class FloatVec3 implements Vector<Float> {
         return (float) Math.sqrt(Math.pow(delta.x, 2) + Math.pow(delta.y, 2) + Math.pow(delta.z, 2));
     }
 
+    public float length() {
+        // I smell some garbage collection shenanigans
+        return distanceTo(new FloatVec3(0.0F, 0.0F, 0.0F));
+    }
+
+    public FloatVec3 normalize() {
+        float vecLength = length();
+        return divideScalar(vecLength);
+    }
+
     @Override
     public String toString() {
         return "Vector3{" +
