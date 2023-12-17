@@ -32,14 +32,14 @@ public class Vector3<T extends Number> implements Vector<T> {
         return z;
     }
 
-    public Vector3<T> addScalar(T scalar) {
-        // this is sooo stupid, why can't I do that?
-        return new Vector3<T>(
-                x + scalar,
-                y + scalar,
-                z + scalar
-        );
-    }
+//    public Vector3<T> addScalar(T scalar) {
+//        // this is sooo stupid, why can't I do that?
+//        return new Vector3<T>(
+//                x + scalar,
+//                y + scalar,
+//                z + scalar
+//        );
+//    }
 
     @Override
     public ArrayList<T> toList() {
