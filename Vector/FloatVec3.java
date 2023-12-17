@@ -137,6 +137,10 @@ public class FloatVec3 implements Vector<Float> {
         return distanceTo(new FloatVec3(0.0F, 0.0F, 0.0F));
     }
 
+    public float dot(FloatVec3 vec) {
+        return x * vec.x + y * vec.y + z * vec.z;
+    }
+
     public FloatVec3 normalize() {
         float vecLength = length();
         return divideScalar(vecLength);
