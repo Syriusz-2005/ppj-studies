@@ -1,6 +1,8 @@
 import java.awt.geom.Point2D;
 import java.util.*;
 
+import SDF.SDFTerminalRenderer;
+import SDF.SDFWorld;
 import Util.UtilManager;
 
 public class Main {
@@ -225,8 +227,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int[] arr = {5, 1, 0, 12, 15, 4};
-        Task17.bubbleSortRe(arr, arr.length);
-        System.out.println(Arrays.toString(arr));
+        var world = new SDFWorld();
+        var renderer = new SDFTerminalRenderer(world);
+        renderer.render();
     }
 }
