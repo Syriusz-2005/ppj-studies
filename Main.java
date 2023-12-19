@@ -1,7 +1,8 @@
 import java.awt.geom.Point2D;
 import java.util.*;
 
-import SDF.SDFTerminalRenderer;
+import SDF.LambdaOut;
+import SDF.SDFRenderer;
 import SDF.SDFWorld;
 import Util.UtilManager;
 
@@ -228,7 +229,24 @@ public class Main {
 
     public static void main(String[] args) {
         var world = new SDFWorld();
-        var renderer = new SDFTerminalRenderer(world);
+        var terminalOut = new LambdaOut((occlusion, distanceFromCamera) -> {
+            if (distanceFromCamera >= 40) {
+                System.out.print("   ");
+                return;
+            }
+            if (occlusion < .05) {
+                System.out.print("■■■");
+            } else if (occlusion < .3) {
+                System.out.print("■□■");
+            } else if (occlusion < .7) {
+                System.out.print("□■□");
+            } else {
+                System.out.print("□□□");
+            }
+        }, System.out::println);
+
+        var renderer = new SDFRenderer(world, terminalOut);
+
         renderer.render();
     }
 }

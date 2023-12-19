@@ -13,4 +13,29 @@ public class SDFWorld {
 
         return sphere;
     }
+
+    public FloatVec3 rayMarch(FloatVec3 start, FloatVec3 rayDir) {
+        FloatVec3 pos = start;
+        float minDistance = .01F;
+
+        for (int i = 0; i < 40; i++) {
+            float distance = getDistanceAt(pos);
+            if (distance < minDistance) {
+                return pos;
+            }
+            pos = pos.add(rayDir.multiplyScalar(distance));
+        }
+
+        return pos;
+    }
+
+    public FloatVec3 calculateNormal(FloatVec3 pos, float distance) {
+        float close = .01F;
+        float dSDFdx = getDistanceAt(new FloatVec3(pos.x + close, pos.y, pos.z).subtractScalar(distance));
+        float dSDFdy = getDistanceAt(new FloatVec3(pos.x, pos.y + close, pos.z).subtractScalar(distance));
+        float dSDFdz = getDistanceAt(new FloatVec3(pos.x, pos.y, pos.z + close).subtractScalar(distance));
+
+        return new FloatVec3(dSDFdx, dSDFdy, dSDFdz).normalize();
+    }
+
 }
