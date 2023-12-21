@@ -1,9 +1,11 @@
 import java.awt.geom.Point2D;
+import java.io.IOException;
 import java.util.*;
 
 import SDF.LambdaOut;
 import SDF.SDFRenderer;
 import SDF.SDFWorld;
+import SDF.ScreenDrawer;
 import Util.UtilManager;
 
 public class Main {
@@ -245,8 +247,15 @@ public class Main {
             }
         }, System.out::println);
 
-        var renderer = new SDFRenderer(world, terminalOut);
-
+        var screenWidth = 900;
+        var screenHeight = 450;
+        var drawer = new ScreenDrawer(screenWidth, screenHeight);
+        var renderer = new SDFRenderer(world, screenWidth, screenHeight, null, drawer);
         renderer.render();
+
+
+
+
+
     }
 }

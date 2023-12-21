@@ -7,19 +7,24 @@ import java.awt.geom.Point2D;
 public class SDFRenderer {
     private final SDFWorld world;
     private final Out out;
+    private final Drawable drawer;
 
-    private final int screenWidth = 70;
-    private final int screenHeight = 50;
+    private final int screenWidth;
+    private final int screenHeight;
 
-    public final float aspectRatio = (float) screenWidth / (float) screenHeight;
+    public final float aspectRatio;
     public final float fovX = .33F;
-    public final float fovY = fovX / aspectRatio;
+    public final float fovY;
 
-    public SDFRenderer(SDFWorld world, Out out) {
+    public SDFRenderer(SDFWorld world, int screenWidth, int screenHeight, Out out, Drawable drawer) {
         this.world = world;
         this.out = out;
+        this.drawer = drawer;
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
+        this.aspectRatio = (float) screenWidth / (float) screenHeight;
+        this.fovY = fovX / aspectRatio;
     }
-
 
 
     private Point2D.Float getPixel(float px, float py) {
@@ -33,7 +38,7 @@ public class SDFRenderer {
     public void render() {
         var cameraPos = world.cameraPos;
 
-        FloatVec3 lightDir = new FloatVec3(0F, 1F, 0).normalize();
+        FloatVec3 lightDir = new FloatVec3(0F, 1F, -0F).normalize();
 
         for (int y = 0; y < screenHeight; y++) {
             for (int x = 0; x < screenWidth; x++) {
@@ -46,9 +51,15 @@ public class SDFRenderer {
                 float distanceFromCamera = cameraPos.distanceTo(rayHit);
                 FloatVec3 normal = world.calculateNormal(rayHit, world.getDistanceAt(rayHit));
                 float occlusion = normal.dot(lightDir);
-                out.displayPixel(occlusion, distanceFromCamera);
+                if (out != null) {
+                    out.displayPixel(occlusion, distanceFromCamera);
+                } else {
+                    drawer.drawAt(new Point2D.Float(x, y), occlusion, distanceFromCamera);
+                }
             }
-            out.nextRow();
+            if (out != null) {
+                out.nextRow();
+            }
         }
     }
 }

@@ -33,7 +33,6 @@ public class Vector3<T extends Number> implements Vector<T> {
     }
 
 //    public Vector3<T> addScalar(T scalar) {
-//        // this is sooo stupid, why can't I do that?
 //        return new Vector3<T>(
 //                x + scalar,
 //                y + scalar,
