@@ -38,7 +38,7 @@ public class SDFRenderer {
     public void render() {
         var cameraPos = world.cameraPos;
 
-        FloatVec3 lightDir = new FloatVec3(0F, 1F, -0F).normalize();
+        FloatVec3 lightDir = new FloatVec3(0.2F, 1F, 0F).normalize();
 
         for (int y = 0; y < screenHeight; y++) {
             for (int x = 0; x < screenWidth; x++) {

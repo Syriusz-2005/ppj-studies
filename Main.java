@@ -247,8 +247,8 @@ public class Main {
             }
         }, System.out::println);
 
-        var screenWidth = 900;
-        var screenHeight = 450;
+        var screenWidth = 855;
+        var screenHeight = 350;
         var drawer = new ScreenDrawer(screenWidth, screenHeight);
         var renderer = new SDFRenderer(world, screenWidth, screenHeight, null, drawer);
         renderer.render();
