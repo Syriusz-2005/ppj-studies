@@ -129,6 +129,8 @@ public class SDFRendering {
 
         int vertexArr = glGenVertexArrays();
         int screenLocation = glGetUniformLocationARB(program, "screen");
+        int frameLocation = glGetUniformLocationARB(program, "frame");
+        int i = 0;
 
         while (!glfwWindowShouldClose(window)) {
             glfwPollEvents();
@@ -139,10 +141,12 @@ public class SDFRendering {
             glUseProgramObjectARB(program);
 
             GL20.glUniform2f(screenLocation, width, height);
+            GL20.glUniform1i(frameLocation, i);
             glBindVertexArray(vertexArr);
             glDrawArrays(GL_TRIANGLES, 0, 3);
 
             glfwSwapBuffers(window);
+            i++;
         }
     }
 
