@@ -14,13 +14,27 @@ flat in float maxDistance;
 
 out vec4 fragColor;
 
+float getChange(float speed) {
+  return sin(frame * speed);
+}
+
 float getSDF(vec3 pos) {
   float val = maxDistance;
 
+  for (int x = -3; x < 3; x++) {
+    for (int z = -3; z < 0; z++) {
+      val = min(
+        val,
+        length(pos - vec3(getChange(0.0024) * 2 + x * 2.1, getChange(0.002) * 2.4, getChange(0.002) * 2 - 8 + z * 2.1)) - 1
+      ); // a simple sphere
+    }
+  }
+
+
   val = min(
     val,
-    length(pos - vec3(0.0, 0.0, 0.0)) - 1
-  );
+    pos.y + 2.0
+  ); // flat surface
 
   return val;
 }
@@ -53,10 +67,33 @@ vec3 rayMarch(vec3 cameraPos, vec3 ray) {
   return pos;
 }
 
+float getShadows(vec3 pos, vec3 lightDir) {
+  vec3 rayPos = pos + lightDir;
+  vec3 normal = getNormal(pos, getSDF(pos));
+
+  float indifference = dot(normal, lightDir);
+
+  if (indifference < .5) {
+    return 1;
+  }
+
+  for (int i = 0; i < iterations; i++) {
+    float sdfValue = getSDF(rayPos);
+    rayPos += lightDir * sdfValue;
+
+    if (sdfValue < minDistance) {
+      return 0;
+    }
+
+  }
+
+  return 1;
+}
+
 vec3 render() {
   vec3 color = vec3(0.0);
 
-  vec3 sunlight = normalize(vec3(-.4, sin(frame * 0.005) * .5 + .5, 0));
+  vec3 sunlight = normalize(vec3(0, 1, 0));
 
   vec2 pixel = vUvs * 2;
 
@@ -76,9 +113,18 @@ vec3 render() {
 
   float lightExposure = dot(normal, sunlight);
 
+  float fogStart = maxDistance - 8;
+
   if (distanceFromCamera < maxDistance) {
     float intensity = lightExposure * .5 + .5;
-    color = vec3(intensity);
+    float shadowValue = getShadows(rayHitAt, sunlight);
+    float fogIntensity = clamp(maxDistance - distanceFromCamera, 0.0, 1.0);
+
+    color = vec3(fogIntensity * intensity);
+    if (shadowValue < .3) {
+      color *= .3;
+    }
+//    color = color * shadowValue;
   }
 
   return color;

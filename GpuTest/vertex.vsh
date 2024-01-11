@@ -20,14 +20,14 @@ void main() {
   gl_Position = vec4(vertex, 0.0, 1.0);
 
   vUvs = vertex;
-  cameraPos = vec3(sin(frame * 0.002) * 2, 0, 5);
+  cameraPos = vec3(0, 0, 5);
 
 
   aspectRatio = screen.x / screen.y;
   fovX = .33;
   fovY = fovX / aspectRatio;
 
-  minDistance = .000001;
-  iterations = 30;
+  minDistance = .01;
+  iterations = 75;
   maxDistance = 40;
 }

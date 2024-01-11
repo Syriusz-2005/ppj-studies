@@ -230,28 +230,31 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        var world = new SDFWorld();
-        var terminalOut = new LambdaOut((occlusion, distanceFromCamera) -> {
-            if (distanceFromCamera >= 40) {
-                System.out.print("   ");
-                return;
-            }
-            if (occlusion < .05) {
-                System.out.print("■■■");
-            } else if (occlusion < .3) {
-                System.out.print("■□■");
-            } else if (occlusion < .7) {
-                System.out.print("□■□");
-            } else {
-                System.out.print("□□□");
-            }
-        }, System.out::println);
 
-        var screenWidth = 855;
-        var screenHeight = 350;
-        var drawer = new ScreenDrawer(screenWidth, screenHeight);
-        var renderer = new SDFRenderer(world, screenWidth, screenHeight, null, drawer);
-        renderer.render();
+        System.out.println(Arrays.toString(args));
+//
+//        var world = new SDFWorld();
+//        var terminalOut = new LambdaOut((occlusion, distanceFromCamera) -> {
+//            if (distanceFromCamera >= 40) {
+//                System.out.print("   ");
+//                return;
+//            }
+//            if (occlusion < .05) {
+//                System.out.print("■■■");
+//            } else if (occlusion < .3) {
+//                System.out.print("■□■");
+//            } else if (occlusion < .7) {
+//                System.out.print("□■□");
+//            } else {
+//                System.out.print("□□□");
+//            }
+//        }, System.out::println);
+//
+//        var screenWidth = 855;
+//        var screenHeight = 350;
+//        var drawer = new ScreenDrawer(screenWidth, screenHeight);
+//        var renderer = new SDFRenderer(world, screenWidth, screenHeight, null, drawer);
+//        renderer.render();
 
 
 
