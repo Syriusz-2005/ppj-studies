@@ -18,22 +18,29 @@ float getChange(float speed) {
   return sin(frame * speed);
 }
 
+float smin(float a, float b, float k) {
+  float h = clamp(0.5 + 0.5*(a-b)/k, 0.0, 1.0);
+  return mix(a, b, h) - k*h*(1.0-h);
+}
+
 float getSDF(vec3 pos) {
   float val = maxDistance;
 
   for (int x = -3; x < 3; x++) {
     for (int z = -3; z < 0; z++) {
-      val = min(
+      val = smin(
         val,
-        length(pos - vec3(getChange(0.0024) * 2 + x * 2.1, getChange(0.002) * 2.4, getChange(0.002) * 2 - 8 + z * 2.1)) - 1
+        length(pos - vec3(getChange(0.0034) * 2 + x * 2.1, -1.3 + getChange(0.009), getChange(0.012) * 2 - 8 + z * 2.1)) - 1,
+        0
       ); // a simple sphere
     }
   }
 
 
-  val = min(
+  val = smin(
     val,
-    pos.y + 2.0
+    pos.y + 2.0,
+    2
   ); // flat surface
 
   return val;

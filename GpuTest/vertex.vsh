@@ -12,7 +12,6 @@ flat out float minDistance;
 flat out int iterations;
 flat out float maxDistance;
 
-
 void main() {
   vec2 vertex = vec2(-1.0) + vec2(
   float((gl_VertexID & 1) << 2),
@@ -28,6 +27,6 @@ void main() {
   fovY = fovX / aspectRatio;
 
   minDistance = .01;
-  iterations = 75;
+  iterations = 70;
   maxDistance = 40;
 }

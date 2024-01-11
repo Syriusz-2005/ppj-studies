@@ -10,6 +10,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.IntBuffer;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -132,7 +134,9 @@ public class SDFRendering {
         int frameLocation = glGetUniformLocationARB(program, "frame");
         int i = 0;
 
+
         while (!glfwWindowShouldClose(window)) {
+            Instant start = Instant.now();
             glfwPollEvents();
 
             glViewport(0, 0, width, height);
@@ -147,6 +151,9 @@ public class SDFRendering {
 
             glfwSwapBuffers(window);
             i++;
+            Instant end = Instant.now();
+            long timeElapsed = Duration.between(start, end).toMillis();
+            System.out.println(timeElapsed);
         }
     }
 
