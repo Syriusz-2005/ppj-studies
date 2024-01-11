@@ -2,13 +2,13 @@ public class Lab24 {
     public static void main(String[] args) {
         int value = 0b1001110;
         value = 127;
-        System.out.println(tobinary(value));
+        System.out.println(toBinary(value));
         System.out.println(toQuad(value));
         System.out.println(toOct(value));
         System.out.println(toHex(value));
     }
 
-    public static String tobinary(int value) {
+    public static String toBinary(int value) {
         int n = value;
 
         int mask = 0b1;
