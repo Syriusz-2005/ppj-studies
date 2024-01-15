@@ -28,5 +28,5 @@ void main() {
 
   minDistance = .01;
   iterations = 70;
-  maxDistance = 60;
+  maxDistance = 17;
 }
