@@ -10,6 +10,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.IntBuffer;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -131,6 +133,7 @@ public class SDFRendering {
         int screenLocation = glGetUniformLocationARB(program, "screen");
         int frameLocation = glGetUniformLocationARB(program, "frame");
         int i = 0;
+
 
         while (!glfwWindowShouldClose(window)) {
             glfwPollEvents();

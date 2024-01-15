@@ -18,23 +18,41 @@ float getChange(float speed) {
   return sin(frame * speed);
 }
 
+float smin(float a, float b, float k) {
+  float h = clamp(0.5 + 0.5*(a-b)/k, 0.0, 1.0);
+  return mix(a, b, h) - k*h*(1.0-h);
+}
+
+// function from https://iquilezles.org/articles/distfunctions/
+//float opRepetition( in vec3 p, in vec3 s, in sdf3d primitive ) {
+//  vec3 q = p - s*round(p/s);
+//  return primitive(q);
+//}
+
+float Sphere(in vec3 pos, in float radius) {
+  return length(pos) - radius;
+}
+
+vec3 opRepetition(in vec3 p, in vec3 s) {
+  return p - s * round(p / s);
+}
+
 float getSDF(vec3 pos) {
   float val = maxDistance;
 
-  for (int x = -3; x < 3; x++) {
-    for (int z = -3; z < 0; z++) {
-      val = min(
-        val,
-        length(pos - vec3(getChange(0.0024) * 2 + x * 2.1, getChange(0.002) * 2.4, getChange(0.002) * 2 - 8 + z * 2.1)) - 1
-      ); // a simple sphere
-    }
-  }
+    val = min(
+      val,
+      Sphere(
+        opRepetition(pos - vec3(0.0, 4.8, -10), vec3(3, 3, 10)),
+        1
+      )
+    ); // a simple sphere
 
-
-  val = min(
-    val,
-    pos.y + 2.0
-  ); // flat surface
+//  val = smin(
+//    val,
+//    pos.y + 2.0,
+//    2
+//  ); // flat surface
 
   return val;
 }
@@ -62,6 +80,10 @@ vec3 rayMarch(vec3 cameraPos, vec3 ray) {
     }
 
     pos += ray * sdfValue;
+
+    if (length(pos - cameraPos) > maxDistance) {
+      break;
+    }
   }
 
   return pos;
@@ -103,9 +125,13 @@ vec3 render() {
     vec3(tan(angle), -1.0)
   );
 
-  vec3 rayHitAt = rayMarch(cameraPos, rayDir);
+  vec3 initialPos = cameraPos;
 
-  float distanceFromCamera = distance(rayHitAt, cameraPos);
+  initialPos.z -= frame * .01;
+
+  vec3 rayHitAt = rayMarch(initialPos, rayDir);
+
+  float distanceFromCamera = distance(rayHitAt, initialPos);
 
   float distanceAtRayHit = getSDF(rayHitAt);
 
@@ -117,13 +143,13 @@ vec3 render() {
 
   if (distanceFromCamera < maxDistance) {
     float intensity = lightExposure * .5 + .5;
-    float shadowValue = getShadows(rayHitAt, sunlight);
+//    float shadowValue = getShadows(rayHitAt, sunlight);
     float fogIntensity = clamp(maxDistance - distanceFromCamera, 0.0, 1.0);
 
     color = vec3(fogIntensity * intensity);
-    if (shadowValue < .3) {
-      color *= .3;
-    }
+//    if (shadowValue < .3) {
+//      color *= .3;
+//    }
 //    color = color * shadowValue;
   }
 
