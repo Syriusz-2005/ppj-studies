@@ -136,7 +136,6 @@ public class SDFRendering {
 
 
         while (!glfwWindowShouldClose(window)) {
-            Instant start = Instant.now();
             glfwPollEvents();
 
             glViewport(0, 0, width, height);
@@ -151,9 +150,6 @@ public class SDFRendering {
 
             glfwSwapBuffers(window);
             i++;
-            Instant end = Instant.now();
-            long timeElapsed = Duration.between(start, end).toMillis();
-            System.out.println(timeElapsed);
         }
     }
 
