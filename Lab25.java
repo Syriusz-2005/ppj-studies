@@ -30,6 +30,7 @@ class MyScaner {
                 str += c;
             } catch (IOException err) {
                 System.out.println(err);
+                return str;
             }
         }
     }
