@@ -17,7 +17,6 @@ void main() {
   float((gl_VertexID & 1) << 2),
   float((gl_VertexID & 2) << 1));
   gl_Position = vec4(vertex, 0.0, 1.0);
-
   vUvs = vertex;
   cameraPos = vec3(0, 0, 5);
 
@@ -28,5 +27,5 @@ void main() {
 
   minDistance = .01;
   iterations = 70;
-  maxDistance = 17;
+  maxDistance = 37;
 }
